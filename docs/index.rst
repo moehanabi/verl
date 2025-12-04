@@ -130,6 +130,7 @@ verl is fast with:
    advance/reward_loop
    advance/fully_async
    data/transfer_queue.md
+   advance/async-on-policy-distill
 
 .. toctree::
    :maxdepth: 1
