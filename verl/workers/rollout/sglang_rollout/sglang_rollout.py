@@ -740,7 +740,10 @@ class SGLangRollout(BaseRollout):
             output = None
 
         # Most naive implementation, can extract tensor and send via gloo if too slow
-        dist.barrier()
+                # dist.barrier()
+        if not hasattr(self, 'barrier_group'):
+            self.barrier_group = dist.new_group(backend="gloo")
+        dist.barrier(group=self.barrier_group)
 
         # Because the logic below requires GPU memory proportional to the batch size, so free cache first to avoid OOM
         if self._engine is not None and self._tp_rank == 0:
